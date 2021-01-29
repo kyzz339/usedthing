@@ -31,10 +31,14 @@
 				    </c:forEach>
 	      <h3>내용 : <c:out value="${product.p_Contents}"/></h3>
 	      <div class="caption">
-	                
+	        
+	        <c:if test="${product.p_Onsale eq 'soldout' }">
+	        <p>판매완료</p>
+	        </c:if>
+	        <c:if test="${product.p_Onsale eq 'onsale' }">  
 	        <p>가격 :<c:out value="${product.p_Price}"/></p>
-	        <p>작성자 : <c:out value="${product.p_Writer}"/></p>   
-	        <p><c:out value="${imglist}"/></p>     
+	        </c:if>
+	        <p>작성자 : <c:out value="${product.p_Writer}"/></p>   	             
 	      </div>
 	      <%if(session.getAttribute("member")!=null){ %>
 	      <%ProductDTO dto1 = (ProductDTO)request.getAttribute("product"); %>

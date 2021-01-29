@@ -20,8 +20,14 @@
 	      
 	      <a class='move' href="<c:out value='${product.p_Idx}'/>"><img style='width:500px; height:200px; ' src="<spring:url value='/resources/images/${product.p_Thumnail}'/>"></a> <!--https://k-develpoper.tistory.com/8 참고  -->
 	      <div class="caption">	      
-	        <h3>${product.p_Title} </h3> 
+	        <h3>${product.p_Title} </h3>
+	   
+	        <c:if test="${product.p_Onsale eq 'soldout' }">
+	        <p>판매완료</p>
+	        </c:if>
+	        <c:if test="${product.p_Onsale eq 'onsale' }"> 
 	        <p>${product.p_Price}</p>
+	        </c:if>
 	        <p>${product.p_Writer }</p>     
 	      </div>
 	    </div>
