@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.usedthing.mapper.MemberMapper">
+ <!--회원가입  -->
+ <insert id="create">
+ 	insert into usedthing_member (id,password,nickname,postcode,address1,address2,address3)
+ 	values (#{id},#{password},#{nickname},#{postcode},#{address1},#{address2},#{address3})
+ </insert>
+ <!--로그인  -->
+ <select id="login" resultType="com.usedthing.DTO.MemberDTO">
+ 	select id,password,nickname,report
+ 	
+ 	from usedthing_member
+ 	
+ 	where id=#{id} and password=#{password}
+ </select>
+ 
+ <select id="read" resultType="com.usedthing.DTO.MemberDTO">
+ 	select *
+ 	
+ 	from usedthing_member
+ 	
+ 	where id=#{id}
+ </select>
+ 
+ <delete id="delete">
+ 	delete 
+ 	
+ 	from usedthing_member 
+ 	
+ 	where id = #{id} 
+ </delete>
+ 
+ <update id="update">
+ 	update usedthing_member
+ 	
+ 	set password = #{password},
+ 		nickname = #{nickname},
+ 		postcode = #{postcode},
+ 		address1 = #{address1},
+ 		address2 = #{address2},
+ 		address3 = #{address3}
+ 	
+ 	where id = #{id}
+ </update>
+ 
+ <select id="idchk" resultType="int">
+ 	select count(*)
+ 	
+ 	from usedthing_member
+ 	
+ 	where id = #{id}
+ </select>
+ <select id="nicknamechk" resultType="int">
+ 	select count(*)
+ 	
+ 	from usedthing_member
+ 	
+ 	where nickname = #{nickname}
+ </select>
+ 
+ <select id="getlist" resultType="com.usedthing.DTO.MemberDTO">
+ 	select *
+ 	from usedthing_member
+ </select>
+ 
+ <delete id="delete_admin">
+ 	delete 
+ 	
+ 	from usedthing_member 
+ 	
+ 	where idx = #{idx} 
+ </delete>
+ 
+ <update id="update_admin">
+ 	update usedthing_member
+ 	
+ 	set report = 'admin'
+ 	
+ 	where idx = #{idx}
+ 	
+ </update>
+ 
+ <select id="findpassword" resultType="String">
+ 	select password
+ 	
+ 	from usedthing_member
+ 	
+ 	where id = #{id}
+ </select>
+</mapper>  

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.usedthing.mapper.ReplyMapper">
+  	<insert id="insert">
+  		insert into usedthing_reply (p_Idx,r_Contents,r_Writer)
+  		values (#{p_Idx},#{r_Contents},#{r_Writer})
+  	</insert>
+  	
+  	<select id="read" resultType="com.usedthing.DTO.ReplyDTO">
+  		select *
+  		from usedthing_reply
+  		where p_Idx = #{p_Idx}
+  	</select>
+  	
+  	<delete id="delete">
+  		delete
+  		from usedthing_reply
+  		where r_Idx = #{r_Idx}
+  	</delete>
+  	
+  	<update id="update">
+  		update usedthing_reply
+  		
+  		set r_Contents=#{r_Contents},
+  			r_Updatedate = now()
+  		where r_Idx = #{r_Idx}
+  	</update>
+  	
+  	<select id="getListWithPaging" resultType="com.usedthing.DTO.ReplyDTO">
+  		select *
+  		from usedthing_reply
+  		where p_Idx = #{p_Idx}
+  		order by r_Idx asc
+  		limit #{cri.nowPageNum},#{cri.amount} 
+  	</select>
+  	
+  	<select id="getCountreply" resultType="int">
+  		select count(*)
+  		from usedthing_reply
+  		where p_Idx = #{p_Idx}
+  	</select>
+  </mapper>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.usedthing.mapper.ProductMapper">
+  	
+  	<insert id="create">
+  		insert into usedthing_product (p_Title,p_Contents,p_Writer,p_Code,p_Thumnail,p_Img,p_Sellingway,p_Price)
+  		values (#{p_Title},#{p_Contents},#{p_Writer},#{p_Code},#{p_Thumnail},#{p_Img},#{p_Sellingway},#{p_Price})
+  	</insert>
+  	
+  	<select id="getlist" resultType="com.usedthing.DTO.ProductDTO">
+  		select *
+  		from usedthing_product
+  	</select>
+  	
+  	<select id="Mylist" resultType="com.usedthing.DTO.ProductDTO">
+  		select *
+  		from usedthing_product
+  		where p_Writer = #{nickname}
+  		order by p_Idx asc
+  		limit #{nowPageNum},#{amount}
+  	</select>
+  	
+  	<select id="read" resultType="com.usedthing.DTO.ProductDTO" >
+  		select *
+  		from usedthing_product
+  		where p_Idx = #{p_Idx}
+  	</select>
+  	
+  	<delete id="delete">
+  	delete 
+ 	from usedthing_product 
+ 	where p_Idx = #{p_Idx}
+  	</delete>
+  	
+  	<update id="update" >
+  	update usedthing_product
+ 	
+ 	set p_Title = #{p_Title},
+ 		p_Contents = #{p_Contents},
+ 		p_Code = #{p_Code},
+ 		p_Thumnail = #{p_Thumnail},
+ 		p_Img = #{p_Img},
+ 		p_Updatedate = now(),
+ 		p_Sellingway = #{p_Sellingway},
+ 		p_Price = #{p_Price},
+ 		p_Onsale = #{p_Onsale}
+ 		where p_Idx = #{p_Idx}
+  	</update>
+  	
+  	<select id="Paginglist" resultType="com.usedthing.DTO.ProductDTO">
+  		select *
+  		from usedthing_product
+  		<choose>
+  			<when test="type == 'T'.toString()">
+  			where p_Title like concat('%',#{keyword},'%')
+  			</when>
+  			<when test="type == 'C'.toString()">
+  			where (p_Contents like concat('%',#{keyword},'%')
+  			</when>
+  			<when test="type == 'O'.toString()">
+  			where (p_Code like concat('%',#{keyword},'%')
+  			</when>
+  			<when test="type == 'TC'.toString()">
+  			where (p_Title like concat('%',#{keyword},'%') or p_Contents like concat('%',#{keyword},'%'))
+  			</when>
+  			<when test="type == 'TCO'.toString()">
+  			where (p_Title like concat('%',#{keyword},'%') or p_Contents like concat('%',#{keyword},'%') or p_Code like concat('%',#{keyword},'%'))
+  			</when>
+  		</choose>
+  		order by p_Idx asc
+  		limit #{nowPageNum},#{amount}
+  	</select>
+  	
+  	<update id="changeonsale">
+  	update usedthing_product
+  	
+  	set p_Onsale = "soldout"
+  		where p_Idx = #{p_Idx}
+  	</update>
+  	
+  	<update id="changesoldout">
+  	update usedthing_product
+  	
+  	set p_Onsale = "onsale"
+  		where p_Idx = #{p_Idx}
+  	</update>
+  	
+  	<select id="getTotalCount" resultType="int">
+  		select count(*)
+  		from usedthing_product
+  		<choose>
+  			<when test="type == 'T'.toString()">
+  			where p_Title like concat('%',#{keyword},'%')
+  			</when>
+  			<when test="type == 'C'.toString()">
+  			where (p_Contents like concat('%',#{keyword},'%')
+  			</when>
+  			<when test="type == 'O'.toString()">
+  			where (p_Code like concat('%',#{keyword},'%')
+  			</when>
+  			<when test="type == 'TC'.toString()">
+  			where (p_Title like concat('%',#{keyword},'%') or p_Contents like concat('%',#{keyword},'%'))
+  			</when>
+  			<when test="type == 'TCO'.toString()">
+  			where (p_Title like concat('%',#{keyword},'%') or p_Contents like concat('%',#{keyword},'%') or p_Code like concat('%',#{keyword},'%'))
+  			</when>
+  		</choose>
+  	</select>
+  	
+  	<select id="myTotalcount" resultType="int">
+  		select count(*)
+  		from usedthing_product
+  		where p_Writer = #{nickname}
+  	</select>
+  	
+  </mapper>
