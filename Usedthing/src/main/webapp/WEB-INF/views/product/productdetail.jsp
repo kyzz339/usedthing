@@ -123,12 +123,14 @@
 			str +="<div><div class='header'><strong class='primary-font'>"+list[i].r_Contents+"</strong>";
 			str +="<small class='pull-right text-muted'>"+replyService.displayTime(list[i].r_Regdate)+"</small></div>";
 			str +="<p>"+list[i].r_Writer+"</p>";
-			<%if(session.getAttribute("member")!=null){%>
+			
+			str += "<c:if test='${member ne null}'>";
 			if(list[i].r_Writer == writer){
 			str +="<button class='replyremovebutton' id='"+list[i].r_Idx+"'>삭제</button>";
 			str +="<button class='replymodifybutton' id='"+list[i].r_Idx+"'>수정</button></div></li>";
 			}
-			<%}%>
+			
+			str += "</c:if>";
 		}
 		console.log(str);
 		replyUL.html(str);
