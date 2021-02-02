@@ -38,17 +38,18 @@
                                         </div>
                                         
                                         
-                                            <label>썸네일 이미지</label>
-                                            <input type='file' name='file1' value="<c:out value='${detail.p_Thumnail }'/>">                                            
-                                        
-                                        
-                                        
+                                            <label>썸네일 이미지</label><br>
+                                            <div class="form-group" id="thumnailupload">
+                                                                                        
+                                        	
+                                        	</div>
                                             <label>상세 이미지</label>
-                                            <input type='file' name='file2' value="<c:out value='${detail.p_Img }'/>">                                            
+                                             <div class="form-group" id="photoupload">
+	                                                                                        	                                            	                                          													                                        		                                        	
+                                        	</div>
+                                        	<input type='button' id='addImg' value='사진추가'>
                                         
-                                        
-                                        
-                                        <div class="form-group">
+                                        <div>
                                             <label>판매방식</label>
                                             <select name="p_Sellingway" value="<c:out value='${detail.p_Sellingway }'/>">
                                             	<option value="1">직거래</option>
@@ -61,12 +62,13 @@
                                             <label>가격</label>
                                             <input class="form-control" type="text" name="p_Price" value="<c:out value='${detail.p_Price }'/>">                                            
                                         </div>
+                                        <input type='hidden' name='p_Onsale' value="<c:out value='${detail.p_Onsale }'/>">
                                         <input type='hidden' name='pageNum' value="<c:out value='${cri.pageNum }'/>">
                                         <input type='hidden' name='amount' value="<c:out value='${cri.amount}'/>">
                                         <input type='hidden' name='type' value="<c:out value='${cri.type}'/>">
                                         <input type='hidden' name='keyword' value="<c:out value='${cri.keyword}'/>">
                                         
-                                        <button type="submit" class="btn btn-default">등록</button>
+                                        <button type="submit" class="btn btn-default">수정</button>
                                         <button type="reset" class="btn btn-default" onclick="location.href='/product/product'">이전으로</button>
                                     </form>
                                 </div>
@@ -84,5 +86,37 @@
             </div>
             <!-- /.row -->
 </body>
+<script>
+var photoupload = $("#photoupload");
+var thumnailupload = $("#thumnailupload")
+$(document).ready(function(){
+	
+	var str = "<c:forEach items='${imglist}' var='I_list'>";
+		str += "<input readonly='readonly' class='form-group' type='text' name='originfiles' id=\"<c:out value='${I_list}'/>\" value=\"<c:out value='${I_list}'/>\">";
+		str += "<input type='button' id='${I_list}' class='deleteImg' value='삭제'></c:forEach><br>";
+	console.log("str : "+str);
+	photoupload.html(str);
+	
+	var thumnailstr = "<input class='form-group' type='text' name='p_Thumnail' value=\"<c:out value='${detail.p_Thumnail}'/>\"><input type='button' id='${detail.p_Thumnail}' class='addthumnail' value='썸네일수정'><br>"
+		thumnailupload.html(thumnailstr);
+	$("#addImg").on("click",function(){
+		str += "<label>상세 이미지</label><input type='file' name='files'>";	
+		
+		photoupload.html(str);
+	})
+	
+	
+	$('#photoupload').on("click",'.deleteImg',function(){
+		var id = $(this).attr('id');
+		$("input[id='"+id+"']").remove();
+})
+	$("#thumnailupload").on("click",".addthumnail",function(){
+		thumnailstr = "<input type='file' name='file1'>";
+		thumnailupload.html(thumnailstr);
+	})
+	
+})
 
+
+</script>
 <%@include file="../includes/footer.jsp" %>

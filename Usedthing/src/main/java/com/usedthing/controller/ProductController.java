@@ -76,7 +76,11 @@ public String Mylist(Model model,P_Criteria cri,@SessionAttribute("member")Membe
 		String filename ="";
 		dto.setP_Thumnail(file1.getOriginalFilename());
 		for(int a=0;a<files.size();a++) {
-		filename += files.get(a).getOriginalFilename()+";";
+		filename += files.get(a).getOriginalFilename();
+		if(a < files.size()-1) {
+			filename += ",";
+		}
+		
 		}
 		dto.setP_Img(filename);
 		
@@ -98,7 +102,7 @@ public String Mylist(Model model,P_Criteria cri,@SessionAttribute("member")Membe
 				System.out.println("file1 :"+file1.getOriginalFilename());
 				for(int a=0;a<files.size();a++) 
 					{
-						File target1 = new File(uploadPath,filename.split(";")[a]);
+						File target1 = new File(uploadPath,filename.split(",")[a]);
 						FileCopyUtils.copy(files.get(a).getBytes(),target1);
 						System.out.println("files :"+files.get(a).getOriginalFilename());
 					}
@@ -119,8 +123,8 @@ public String Mylist(Model model,P_Criteria cri,@SessionAttribute("member")Membe
 		
 		List imglist = new ArrayList();
 		String img = service.p_get(p_Idx).getP_Img();
-		for(int a=0; a<StringUtils.countOccurrencesOf(img, ";");a++) {
-			imglist.add(a, img.split(";")[a]);
+		for(int a=0; a<=StringUtils.countOccurrencesOf(img, ",");a++) {
+			imglist.add(a, img.split(",")[a]);
 		}
 		model.addAttribute("imglist",imglist);
 		System.out.println(imglist);
@@ -157,10 +161,21 @@ public String Mylist(Model model,P_Criteria cri,@SessionAttribute("member")Membe
 		return "redirect:/product/product";
 	}
 	
-	@GetMapping("/modify")
+	@GetMapping("/modify") 
 	public String p_modify(@RequestParam("p_Idx")int p_Idx,@ModelAttribute("cri")P_Criteria cri,Model model) {
 		
 		model.addAttribute("detail",service.p_get(p_Idx));
+		String img = service.p_get(p_Idx).getP_Img();
+		List imglist = new ArrayList();
+		System.out.println("imgDB :"+img);
+		for(int a=0; a<=StringUtils.countOccurrencesOf(img, ",");a++) { //파일 이름 분리
+			imglist.add(a, img.split(",")[a]);
+		}
+		model.addAttribute("imglist",imglist);
+		System.out.println(imglist);
+		
+		
+		
 		System.out.println("product modify..."+p_Idx);
 		System.out.println("product modify.....Get");
 		
@@ -168,9 +183,22 @@ public String Mylist(Model model,P_Criteria cri,@SessionAttribute("member")Membe
 	}
 	
 	@PostMapping("/modify")
-	public String p_modify(ProductDTO dto,MultipartFile file1,MultipartFile file2,RedirectAttributes rttr,P_Criteria cri) {
-		dto.setP_Thumnail(file1.getOriginalFilename());
-		dto.setP_Img(file2.getOriginalFilename());
+	public String p_modify(ProductDTO dto,MultipartFile file1,List<MultipartFile> files,String originfiles,RedirectAttributes rttr,P_Criteria cri) {
+		
+		String filename ="";
+		if(file1 != null) {
+			dto.setP_Thumnail(file1.getOriginalFilename());
+		}
+		
+		filename += originfiles;
+		 
+		if(files != null) {
+			for(int a=0;a<files.size();a++) {
+				filename += ","+files.get(a).getOriginalFilename();
+			}
+		}
+		
+		dto.setP_Img(filename);
 		
 		String fileName1= dto.getP_Thumnail();
 		String fileName2=dto.getP_Img();
@@ -180,21 +208,33 @@ public String Mylist(Model model,P_Criteria cri,@SessionAttribute("member")Membe
 		
 		String uploadPath ="/C:/Users/kyzz3/eclipse-workspace/Usedthing/src/main/webapp/resources/images";
 		
-		File target1= new File(uploadPath,fileName1);
-		File target2= new File(uploadPath,fileName2);
-			if(! new File(uploadPath).exists())
-			{
-				new File(uploadPath).mkdirs();
-			}
-			try {
-				FileCopyUtils.copy(file1.getBytes(),target1);
-				
-				FileCopyUtils.copy(file2.getBytes(),target2);
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
+		File target= new File(uploadPath,fileName1);
 		
-		service.p_modify(dto);
+		
+		if(! new File(uploadPath).exists())
+		{
+			new File(uploadPath).mkdirs();
+		}
+		
+		try {
+			if(file1 != null) {
+				FileCopyUtils.copy(file1.getBytes(),target);
+				System.out.println("file1 :"+file1.getOriginalFilename());
+				}
+			for(int a=0;a<files.size();a++) 
+				{
+					File target1 = new File(uploadPath,filename.split(",")[a]);
+					FileCopyUtils.copy(files.get(a).getBytes(),target1);
+					System.out.println("files :"+files.get(a).getOriginalFilename());
+				}
+			
+
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("modify dto"+dto);
+	service.p_modify(dto);
+
 		System.out.println(dto);
 		
 		rttr.addAttribute("pageNum",cri.getPageNum());
