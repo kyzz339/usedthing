@@ -266,10 +266,11 @@ $("#searchForm button").on("click",function(e){
                         <li>
                             <a href="/product/product"><i class="fa-desktop"></i> 상품</a>
                         </li>
+                        <c:if test="${member ne null}"> 
                         <li>
                             <a href="/product/myproduct"><i class="fa-desktop"></i> 내 상품</a>
                         </li>
-                        <c:if test="${member ne null}">                       
+                                              
                         <c:if test="${member.report eq 'admin'}">                        
                         <li>
                             <a href="/member/memberadmin"><i class="fa-desktop"></i> 회원 관리</a>
