@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-    <%@page import="com.usedthing.DTO.MemberDTO" %>
 <!DOCTYPE html>
 <html>
   <script src="/resources/vendor/jquery/jquery.min.js"></script>
@@ -21,7 +20,7 @@ $("#searchForm button").on("click",function(e){
 	  }
 	  searchForm.find("input[name='pageNum']").val("1");
 	  e.preventDefault();
-	  
+	   
 	  searchForm.submit();
 });
 });
@@ -206,26 +205,25 @@ $("#searchForm button").on("click",function(e){
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li>
-                        <% if(session.getAttribute("member")!=null){%>
-                        <a href="/member/modify">
-                        <%} %>
-                        <%if(session.getAttribute("member")==null){ %>
-                        <a href="/member/login">
-                        <%} %>
-                        <i class="fa fa-user fa-fw"></i> User Profile</a>
+                        <li>                        
+                        <c:if test="${member ne null}">
+                        <a href="/member/modify"><i class="fa fa-user fa-fw"></i> User Profile</a>                      
                         
+                        </c:if>
+                        <c:if test="${member eq null}">
+                        <a href="/member/login"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </c:if>
                         </li>
-                        <% if(session.getAttribute("member")!=null){%>
+                        <c:if test="${member ne null }">
                         <li class="divider"></li>
                         <li><a href="/member/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
-                        <%} %>
-                        <%if(session.getAttribute("member")==null){ %>                 
+                        </c:if>                        
+                        <c:if test="${member eq null}">                 
                         <li class="divider"></li>
                         <li><a href="/member/login"><i class="fa fa-sign-out fa-fw"></i> Login</a>
                         </li>
-                        <%} %>
+                        </c:if>
                         
                     </ul>
                     <!-- /.dropdown-user -->
@@ -271,13 +269,13 @@ $("#searchForm button").on("click",function(e){
                         <li>
                             <a href="/product/myproduct"><i class="fa-desktop"></i> 내 상품</a>
                         </li>
-                        <% if(session.getAttribute("member")!=null){ %>
-                        <%MemberDTO dto2 = (MemberDTO)session.getAttribute("member");%>
-                        <%if(dto2.getReport().equals("admin")){ %>
+                        <c:if test="${member ne null}">                       
+                        <c:if test="${member.report eq 'admin'}">                        
                         <li>
                             <a href="/member/memberadmin"><i class="fa-desktop"></i> 회원 관리</a>
-                        </li>  
-                        <%}} %>                                                             
+                        </li>
+                        </c:if>                          
+                        </c:if>                                                             
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

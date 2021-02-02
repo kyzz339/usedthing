@@ -40,17 +40,19 @@
 	        </c:if>
 	        <p>작성자 : <c:out value="${product.p_Writer}"/></p>   	             
 	      </div>
-	      <%if(session.getAttribute("member")!=null){ %>
-	      <%ProductDTO dto1 = (ProductDTO)request.getAttribute("product"); %>
-	      <%MemberDTO dto2 = (MemberDTO)session.getAttribute("member");%> 
-	      <%if(dto2.getNickname().equals(dto1.getP_Writer())){ %>
+	      <c:if test="${member ne null }">
+	      <c:if test="${product.p_Writer eq member.nickname }">
 	      <button class="btn btn-default"><a href='/product/modify?p_Idx=<c:out value="${product.p_Idx }"/>&pageNum=<c:out value="${cri.pageNum }"/>&amount=<c:out value="${cri.amount }"/>&type=<c:out value="${cri.type}"/>&keyword=<c:out value="${cri.keyword}"/>'>수정</a></button>
 		  <button class="btn btn-danger"><a href='/product/delete?p_Idx=<c:out value="${product.p_Idx}"/>'>삭제</a></button>
-		  <%if(dto1.getP_Onsale().equals("onsale")){ %>
+		  <c:if test="${product.p_Onsale eq 'onsale'}">
 		  <button class="btn btn-default"><a href='/product/changeonsale?p_Idx=<c:out value="${product.p_Idx }"/>&pageNum=<c:out value="${cri.pageNum }"/>&amount=<c:out value="${cri.amount }"/>&type=<c:out value="${cri.type}"/>&keyword=<c:out value="${cri.keyword}"/>'>판매완료</a></button>
-		  <%} else{ %>
+		  </c:if>
+		  <c:if test="${product.p_Onsale ne 'onsale'}">
 		  <button class="btn btn-default"><a href='/product/changeosoldout?p_Idx=<c:out value="${product.p_Idx }"/>&pageNum=<c:out value="${cri.pageNum }"/>&amount=<c:out value="${cri.amount }"/>&type=<c:out value="${cri.type}"/>&keyword=<c:out value="${cri.keyword}"/>'>판매재개</a></button>
-		  <%}}} %>
+
+		  </c:if>
+		  </c:if>
+		  </c:if>
 		  <button class="btn btn-info"><a href='/product/product?pageNum=<c:out value="${cri.pageNum }"/>&amount=<c:out value="${cri.amount }"/>&type=<c:out value="${cri.type}"/>&keyword=<c:out value="${cri.keyword}"/>'>이전</a></button>
 		   
 		
@@ -113,7 +115,7 @@
 		var str="";
 		if(list == null || list.length==0){
 			replyUL.html("");
-			
+			 
 			return;
 		}
 		for(var i=0,len = list.length || 0; i<len;i++){

@@ -3,7 +3,6 @@
 <%@include file="../includes/header.jsp" %>
 <%@taglib  prefix="spring" uri="http://www.springframework.org/tags" %>  
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@page import="com.usedthing.DTO.ProductDTO" %>
 <div class="row">
                 <div class="row">
                 <div class="col-lg-12">
