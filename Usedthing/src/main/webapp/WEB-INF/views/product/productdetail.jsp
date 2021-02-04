@@ -23,11 +23,11 @@
 	      <h3>제목 :<c:out value="${product.p_Title}"/></h3>
 	   </div>
 	   <div class="thumbnail">
-	      <img style='height: 70%; width: 70%; object-fit: contain;' src="<spring:url value='/resources/images/${product.p_Thumnail}'/>"> <!--https://k-develpoper.tistory.com/8 참고  -->
+	      <img width="500px" height="500px" src="<spring:url value='/resources/images/${product.p_Thumnail}'/>"> <!--https://k-develpoper.tistory.com/8 참고  -->
 	      <c:forEach items="${imglist}" var="I_list">
-				    <div class="carousel-item">
-				      <img class="d-block w-100" src="<spring:url value='/resources/images/${I_list}'/>" alt="Second slide">
-				    </div>
+				    
+				      <img width="500px" height="500px" src="<spring:url value='/resources/images/${I_list}'/>" alt="Second slide">
+				    
 				    </c:forEach>
 	      <h3>내용 : <c:out value="${product.p_Contents}"/></h3>
 	      <div class="caption">
