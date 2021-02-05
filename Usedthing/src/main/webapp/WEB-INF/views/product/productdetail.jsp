@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="d"%>
+    
     <%@page import="com.usedthing.DTO.ProductDTO" %>
     <%@page import="com.usedthing.DTO.MemberDTO" %>
     <%@taglib  prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -21,14 +22,17 @@
 	  <div class="panel-heading">
 	    
 	      <h3>제목 :<c:out value="${product.p_Title}"/></h3>
+
 	   </div>
 	   <div class="thumbnail">
-	      <img width="500px" height="500px" src="<spring:url value='/resources/images/${product.p_Thumnail}'/>"> <!--https://k-develpoper.tistory.com/8 참고  -->
+	   
+	      <img width="500px" style="margin-bottom: 2rem;" height="500px" src="<spring:url value='/resources/images/${product.p_Thumnail}'/>"> <!--https://k-develpoper.tistory.com/8 참고  -->
+	   
 	      <c:forEach items="${imglist}" var="I_list">
 				    
-				      <img width="500px" height="500px" src="<spring:url value='/resources/images/${I_list}'/>" alt="Second slide">
+				      <img width="500px" style="margin-bottom: 2rem;" height="500px" src="<spring:url value='/resources/images/${I_list}'/>" alt="Second slide">
 				    
-				    </c:forEach>
+		  </c:forEach>
 	      <h3>내용 : <c:out value="${product.p_Contents}"/></h3>
 	      <div class="caption">
 	        
