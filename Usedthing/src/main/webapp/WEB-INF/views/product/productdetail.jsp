@@ -30,7 +30,7 @@
 	   
 	      <c:forEach items="${imglist}" var="I_list">
 				    
-				      <img width="500px" style="margin-bottom: 2rem;" height="500px" src="<spring:url value='/resources/images/${I_list}'/>" alt="Second slide">
+				      <img width="500px" style="margin-bottom: 2rem;" height="500px" src="<spring:url value='/resources/images/${I_list}'/>">
 				    
 		  </c:forEach>
 	      <h3>내용 : <c:out value="${product.p_Contents}"/></h3>
