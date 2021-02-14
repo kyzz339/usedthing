@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class ProductDTO {
 	//상품게시판 인덱스
-	int p_Idx;
+	int p_Idx;	
 	//상품게시판 제목
 	String p_Title;
 	//상품게시판 내용

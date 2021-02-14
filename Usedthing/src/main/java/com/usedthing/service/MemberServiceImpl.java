@@ -23,40 +23,44 @@ public class MemberServiceImpl implements MemberService {
 		System.out.println("member register");
 		mapper.create(dto);
 		
-	};
+	}
 	@Override
 	public MemberDTO get(String id) {
 		System.out.println("member get");
 		
 		return mapper.read(id);
-	};
+	}
 	@Override  
 	public int modify(MemberDTO dto) {
 		  System.out.println("member modify");
 		  
 		  return mapper.update(dto);
 		  
-	  };
+	}
 	  @Override
 	  public int remove(String id) {
 		  System.out.println("member remove");
 		  
 		  return mapper.delete(id);
-	  };
+	}
+	  
 	  @Override
 	public MemberDTO login(MemberDTO dto) {
 		
 		return mapper.login(dto);
 	}
+	  
 	  @Override
 	public int idcheck(String id) {
 		
 		return mapper.idchk(id);
 	}
+	  
 	  @Override
 	public int nicknamecheck(String nickname) {
 		return mapper.nicknamechk(nickname);
 	}
+	  
 	  @Override
 	public List<MemberDTO> getList(){
 		
@@ -70,6 +74,7 @@ public class MemberServiceImpl implements MemberService {
 		 
 		 return mapper.delete_admin(idx);
 	 }
+	 
 	 @Override
 	 public int update_admin(int idx) {
 		 System.out.println("update_admin ->idx"+idx);
