@@ -28,6 +28,8 @@ public interface MemberService {
 	  
 	  int update_admin(int idx);
 	  
+	  int update_user(int idx);
+	  
 	  String findpassword(String id);
 	  
 	 

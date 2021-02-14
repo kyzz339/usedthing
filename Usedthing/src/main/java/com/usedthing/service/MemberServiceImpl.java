@@ -78,6 +78,15 @@ public class MemberServiceImpl implements MemberService {
 	 }
 	 
 	 @Override
+	 public int update_user(int idx) {
+		 
+		 System.out.println("update_user -> idx :"+idx);
+		 
+		 return mapper.update_user(idx);
+		 
+	 }
+	 
+	 @Override
 	 public String findpassword(String id) {
 		 System.out.println("find password");
 		 

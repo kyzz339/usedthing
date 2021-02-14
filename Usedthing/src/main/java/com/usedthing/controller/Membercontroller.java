@@ -143,6 +143,15 @@ public class Membercontroller {
 		 return "redirect: /member/memberadmin";
 	 }
 	 
+	 @GetMapping("/update_user")
+	 public String update_user(int idx) {
+		 
+		 service.update_user(idx);
+		 
+		 return "redirect: /member/memberadmin";
+		 
+	 }
+	 
 	 @GetMapping("/findpass")
 	 public String findpass(String id) {
 		 System.out.println("get...findpass");

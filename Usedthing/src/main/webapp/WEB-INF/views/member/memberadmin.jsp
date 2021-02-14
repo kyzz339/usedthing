@@ -29,7 +29,15 @@
                                         <td><fmt:formatDate pattern="yyyy-MM-dd" value="${allmember.regdate}"/></td>
                                         <td class="center">${allmember.report}</td>
                                         <td class="center"><button class="delete" id="${allmember.idx}">회원삭제</button>
-                                        <button class="admin" id="${allmember.idx}">관리자 설정</button></td>                                       
+                                        <c:if test="${sessionScope.member.report eq 'masteradmin'}">
+                                        <c:if test="${allmember.report eq 'user'}">
+                                        <button class="admin" id="${allmember.idx}">관리자 설정</button></td>
+                                        </c:if> 
+                                        <c:if test="${allmember.report eq 'admin'}">
+                                        <button class="user" id="${allmember.idx}">관리자 해제</button></td>
+                                        </c:if>
+                                        
+                                        </c:if>                                       
                                     </tr>
                                 </c:forEach>
                                 </tbody>
@@ -46,18 +54,25 @@ $(document).ready(function() {
 	var adminForm = $("#adminForm");
 	
 	$(".delete").on("click",function(){
-		alert("delete 버튼");
+		alert("회원삭제");
 		adminForm.append("<input type='hidden' name='idx' value='"+$(this).attr("id")+"'>");
 		adminForm.submit();
 	})
 	
 	$(".admin").on("click",function(){
 		
-		alert("admin 버튼");
+		alert("관리자 선정");
 		adminForm.append("<input type='hidden' name='idx' value='"+$(this).attr("id")+"'>");
 		adminForm.attr("action","/member/update_admin");
 		adminForm.submit();
 		
+	})
+	
+	$(".user").on("click",function(){
+		alert("관리자 해제");
+		adminForm.append("<input type='hidden' name='idx' value='"+$(this).attr("id")+"'>");
+		adminForm.attr("action","/member/update_user");
+		adminForm.submit();
 	})
 });
 </script>

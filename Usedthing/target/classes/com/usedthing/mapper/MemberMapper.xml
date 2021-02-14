@@ -80,7 +80,14 @@
  	set report = 'admin'
  	
  	where idx = #{idx}
+ </update>
+ 
+ <update id="update_user">
+ 	update usedthing_member
  	
+ 	set report = 'user'
+ 	
+ 	where idx = #{idx}
  </update>
  
  <select id="findpassword" resultType="String">

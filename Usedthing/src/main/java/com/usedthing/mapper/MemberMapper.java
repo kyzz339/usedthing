@@ -23,7 +23,9 @@ public interface MemberMapper {
 	
 	int delete_admin(int idx);
 	
-	int update_admin(int dix);
+	int update_admin(int idx);
+	
+	int update_user(int idx);
 	
 	String findpassword(String id);
 }

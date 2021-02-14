@@ -283,7 +283,7 @@ $("#searchForm button").on("click",function(e){
                             </ul>                          
                         </li>  
                         <!-- 쪽지 -->                                       
-                        <c:if test="${member.report eq 'admin'}">                        
+                        <c:if test="${member.report eq 'admin' || member.report eq 'masteradmin'}">                        
                         <li>
                             <a href="/member/memberadmin"><i class="fa-desktop"></i> 회원 관리</a>
                         </li>
