@@ -27,7 +27,7 @@
    
   DB구조
    ================================
-![Usedthing_DB](https://user-images.githubusercontent.com/56707285/106288732-c16c2b80-628b-11eb-821e-53da181452bf.PNG)
+![Usedthing_DB(2021-02-14)](https://user-images.githubusercontent.com/56707285/107872137-56596080-6eeb-11eb-8ff6-d70ae02ce11f.PNG)
 
 
 
