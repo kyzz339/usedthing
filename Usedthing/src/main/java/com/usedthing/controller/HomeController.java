@@ -27,35 +27,4 @@ public class HomeController {
 		return "redirect: /product/product";
 	}
 	
-	@GetMapping("/exUpload")
-	public String upload()
-	{
-		
-		return "/test/fileuploadjsp";
-	}
-	
-	@PostMapping("/exUpload")
-	public String home(MultipartFile file) {
-		
-		String fileName =file.getOriginalFilename();
-		String uploadPath ="/C:/Users/kyzz3/eclipse-workspace/Usedthing/src/main/webapp/resources/images";
-		
-		File target= new File(uploadPath,fileName);
-		
-		if(! new File(uploadPath).exists())
-		{
-			new File(uploadPath).mkdirs();
-		}
-		try {
-			FileCopyUtils.copy(file.getBytes(),target);
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		System.out.println("file upload");
-		System.out.println("filename :"+file.getOriginalFilename());
-		System.out.println("filesize :"+file.getSize());
-		
-		return"/product/product";
-	}
-	
 }

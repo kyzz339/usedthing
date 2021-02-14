@@ -29,7 +29,7 @@
                                             <textarea class="form-control" name="p_Contents"></textarea>                                          
                                         </div>                                        
                                             
-                                            <input class="form-control" type="hidden" name="p_Writer" value="${sessionScope.member.nickname }">                                                                                    
+                                            <input class="form-control" type="hidden" name="p_Writer" value="${sessionScope.member.nickname}">                                                                                    
                                         
                                         <div class="form-group">
                                             <label>제품코드</label>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.usedthing.mapper.MessageMapper">
+	<select id="getList" resultType="com.usedthing.DTO.MessageDTO">
+		select *
+		from usedthing_message
+		where m_Deceiver = #{nickname}
+		order by m_Idx desc		
+	</select>
+	
+	<select id="getsendList" resultType="com.usedthing.DTO.MessageDTO">
+		select *
+		from usedthing_message
+		where m_Sender = #{nickname}
+		order by m_Idx desc		
+	</select>
+	
+	<insert id="insert">
+		insert into usedthing_message (p_Idx,m_Sender,m_Deceiver,m_Title,m_Contents)
+		values (#{p_Idx},#{m_Sender},#{m_Deceiver},#{m_Title},#{m_Contents})
+	</insert>
+	
+	 <!-- <select id="read" resultType="com.usedthing.DTO.MessageDTO">
+		select *
+		from usedthing_message
+		where m_Idx = #{m_Idx}
+	</select>  -->
+	
+	<resultMap type="com.usedthing.DTO.MessageDTO" id="messageMap">
+		<id column="m_Idx" property="m_Idx"/>
+		<result column="p_Idx" property="p_Idx"/>
+		<result column="m_Sender" property="m_Sender"/>
+		<result column="m_Deceiver" property="m_Deceiver"/>
+		<result column="m_Date" property="m_Date"/>
+		<result column="m_Title" property="m_Title"/>
+		<result column="m_Contents" property="m_Contents"/>
+	</resultMap>
+	<resultMap type="com.usedthing.DTO.ProductDTO" id="productMap">
+			<id column="p_Idx" property="p_Idx"/>
+			<result column="p_Title" property="p_Title"/>
+			<result column="p_Contents" property="p_Contents"/>
+			<result column="p_Writer" property="p_Writer"/>
+			<result column="p_ViewCount" property="p_ViewCount"/>
+			<result column="p_Code" property="p_Code"/>
+			<result column="p_Thumnail" property="p_Thumnail"/>
+			<result column="p_Img" property="p_Img"/>
+			<result column="p_Regdate" property="p_Regdate"/>
+			<result column="p_Updatedate" property="p_Updatedate"/>
+			<result column="p_Sellingway" property="p_Sellingway"/>
+			<result column="p_Price" property="p_Price"/>
+			<result column="p_Onsale" property="p_Onsale"/>
+	</resultMap>
+	
+	<resultMap type="com.usedthing.DTO.M_productDTO" id="mproductMap">
+		<collection property="message" resultMap="messageMap"/>
+		<collection property="product" resultMap="productMap"/>
+	</resultMap>
+	
+	<select id="read" resultMap="mproductMap">
+		select *
+		
+		from usedthing_message
+		
+		left join usedthing_product on usedthing_message.p_Idx = usedthing_product.p_Idx
+		
+		where m_Idx = #{m_Idx} 
+	</select>
+	
+	<delete id="delete">
+		delete
+		
+		from usedthing_message
+		
+		where m_Idx = #{m_Idx}
+	</delete>
+	
+	
+</mapper>

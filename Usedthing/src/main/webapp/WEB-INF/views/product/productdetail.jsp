@@ -45,6 +45,11 @@
 	        <p>작성자 : <c:out value="${product.p_Writer}"/></p>   	             
 	      </div>
 	      <c:if test="${member ne null }">
+	      <c:if test="${product.p_Writer ne member.nickname }">
+	         <!-- Button trigger modal -->
+		    <button type="button" class="btn btn-default" id="modal_show">판매요청</button>
+
+	      </c:if>
 	      <c:if test="${product.p_Writer eq member.nickname }">
 	      <button class="btn btn-default"><a href='/product/modify?p_Idx=<c:out value="${product.p_Idx }"/>&pageNum=<c:out value="${cri.pageNum }"/>&amount=<c:out value="${cri.amount }"/>&type=<c:out value="${cri.type}"/>&keyword=<c:out value="${cri.keyword}"/>'>수정</a></button>
 		  <button class="btn btn-danger"><a href='/product/delete?p_Idx=<c:out value="${product.p_Idx}"/>'>삭제</a></button>
@@ -53,13 +58,32 @@
 		  </c:if>
 		  <c:if test="${product.p_Onsale ne 'onsale'}">
 		  <button class="btn btn-default"><a href='/product/changeosoldout?p_Idx=<c:out value="${product.p_Idx }"/>&pageNum=<c:out value="${cri.pageNum }"/>&amount=<c:out value="${cri.amount }"/>&type=<c:out value="${cri.type}"/>&keyword=<c:out value="${cri.keyword}"/>'>판매재개</a></button>
-
 		  </c:if>
 		  </c:if>
 		  </c:if>
-		  <button class="btn btn-info"><a href='/product/product?pageNum=<c:out value="${cri.pageNum }"/>&amount=<c:out value="${cri.amount }"/>&type=<c:out value="${cri.type}"/>&keyword=<c:out value="${cri.keyword}"/>'>이전</a></button>
+		  <button class="btn btn-info" onclick="history.back()">이전</button>
 		   
-		
+		   <!-- Modal -->
+			    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			        <div class="modal-dialog" role="document">
+			            <div class="modal-content">
+			                <div class="modal-header">
+			                    <h5 class="modal-title" id="exampleModalLabel">판매요청</h5>
+			                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			                        <span aria-hidden="true">&times;</span>
+			                    </button>
+			                </div>
+			                <div class="modal-body">
+			                    	정말로 판매요청을 하시겠습니까?
+			                </div>
+			                <div class="modal-footer">
+			                	<button type="button" class="btn btn-primary" id="confirm">확인</button>
+			                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>			                    			                   
+			                </div>
+			            </div>
+			        </div>
+			    </div>
+
 		       <!--댓글  -->
 		  <div class='row'>
 				<div class="col-lg-12">
@@ -88,6 +112,48 @@
 </div>
 
 </body>
+<script>
+        $(document).ready(function() {
+        	var modalbody = $(".modal-body");
+        	var sale = "${product.p_Onsale}";
+        	var modalfooter = $(".modal-footer");
+            $("#modal_show").click(function() {
+                $("#exampleModal").modal("show");
+            });
+ 
+            $("#close_modal").click(function() {
+                $("#exampleModal").modal("hide");
+            });
+            $("#confirm").click(function(){
+            		
+             if(sale =="soldout"){
+    
+            	 var str = "판매가 완료된 제품입니다.";
+            	 var buttonstr = "<button type='button' class='btn btn-secondary' data-dismiss='modal'>확인</button>";
+            	 modalbody.html(str);
+            	 modalfooter.html(buttonstr);
+            	 
+            	 $("#exampleModal").modal("show");
+            	 return false;
+             }else{
+            	$.ajax({
+            		url : "/message/defaultsend",
+            		type : "post",
+            		dataType : "json",
+            		data : {"p_Idx" :"${product.p_Idx}"  ,"m_Sender" :"${member.nickname}",
+            			"m_Deceiver" :"${product.p_Writer}","m_Title":"${member.nickname}"+"님이 판매요청을 하였습니다",
+            			"m_Contents":"${member.nickname}"+"님이 판매요청을 하였습니다."},            
+            		success : function(){
+            		$("#exampleModal").modal("hide");	
+            		}	
+            		
+            	})
+            	 
+             }
+            	
+            });
+        });
+    </script>
 <script type="text/javascript" src="/resources/js/reply.js"></script>
 <script>
 	$(document).ready(function(){

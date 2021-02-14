@@ -63,12 +63,16 @@
     $(document).ready(function() {
 
         $("#regBtn").click(function(){
-			
+		if(window.sessionStorage.getItem("member") != null){
         self.location ="/product/createproduct";
+		} else{
+			alert("로그인 해주세요");
+			self.location ="/member/login";			
+		}
         	
         
     });
-        /*jQuery 한번더 보기 */
+        
         var actionForm =$("#actionForm");
        
        $('.paginate_button a').on("click",function(e){
@@ -89,6 +93,7 @@
     	  actionForm.submit();
     	  
       }); 
+      
 
 
     });

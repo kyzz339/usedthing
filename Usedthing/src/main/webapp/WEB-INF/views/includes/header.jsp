@@ -270,7 +270,19 @@ $("#searchForm button").on("click",function(e){
                         <li>
                             <a href="/product/myproduct"><i class="fa-desktop"></i> 내 상품</a>
                         </li>
-                                              
+                        <!--쪽지  -->
+                        <li>
+                            <a href="#"><i class="fa-envelope-o"></i> 쪽지<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/message/messagelist">받은 쪽지함</a>
+                                </li>
+                                <li>
+                                    <a href="/message/sendlist">보낸 쪽지함</a>
+                                </li>
+                            </ul>                          
+                        </li>  
+                        <!-- 쪽지 -->                                       
                         <c:if test="${member.report eq 'admin'}">                        
                         <li>
                             <a href="/member/memberadmin"><i class="fa-desktop"></i> 회원 관리</a>

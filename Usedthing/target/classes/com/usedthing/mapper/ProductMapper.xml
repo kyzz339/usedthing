@@ -12,13 +12,14 @@
   	<select id="getlist" resultType="com.usedthing.DTO.ProductDTO">
   		select *
   		from usedthing_product
+  		order by p_Idx desc
   	</select>
   	
   	<select id="Mylist" resultType="com.usedthing.DTO.ProductDTO">
   		select *
   		from usedthing_product
   		where p_Writer = #{nickname}
-  		order by p_Idx asc
+  		order by p_Idx desc
   		limit #{nowPageNum},#{amount}
   	</select>
   	
