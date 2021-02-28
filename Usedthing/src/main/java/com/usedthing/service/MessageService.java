@@ -17,4 +17,6 @@ public interface MessageService {
 	public List<MessageDTO> getList(String nickname);
 	
 	public List<MessageDTO> getsendList(String nickname);
+	
+	public List<MessageDTO> getsendListhead(String nickname);
 }

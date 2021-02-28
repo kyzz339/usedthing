@@ -1,6 +1,8 @@
 package com.usedthing.controller;
 
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -73,7 +75,6 @@ public class MessageController {
 		
 	}
 	
-	
 	@ResponseBody
 	@PostMapping("/defaultsend")
 	public int getMessage(MessageDTO dto)
@@ -81,6 +82,16 @@ public class MessageController {
 		int result = service.send(dto); 
 		
 		  return result;		
+	}
+	
+	@ResponseBody
+	@GetMapping("/headmessage")
+	public List<MessageDTO> getheadmessage(String nickname) {
+		
+		System.out.println(service.getsendListhead(nickname));
+		
+		return  service.getsendListhead(nickname);
+		
 	}
 	
 }

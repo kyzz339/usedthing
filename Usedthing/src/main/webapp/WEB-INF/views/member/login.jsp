@@ -53,11 +53,11 @@
                                     <input class="form-control" placeholder="Password" name="password" type="password" value="">
                                 </div>
                                 <div class="panel-body">
-                                    <button type="button" class="btn btn-outline btn-success" onclick="location.href='/member/createmember'">회원가입</button>
-                                    <button type="button" class="btn btn-outline btn-success" onclick="location.href='/member/findpass'">비밀번호 찾기</button>
+                                    <button type="button" class="btn btn-outline btn-primary" onclick="location.href='/member/createmember'">회원가입</button>
+                                    <button type="button" class="btn btn-outline btn-primary" onclick="location.href='/member/findpass'">비밀번호 찾기</button>
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
-                                <button type="submit" class="btn btn-lg btn-success btn-block">Login</button>
+                                <button type="submit" class="btn btn-lg btn-primary btn-block">Login</button>
                                 
                                                        
                             </fieldset>

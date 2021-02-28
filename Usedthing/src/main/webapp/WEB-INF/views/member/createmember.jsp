@@ -17,8 +17,8 @@
                                         <div class="form-group">
                                             <label>이메일 주소</label>                                            
                                             <input class="form-control" placeholder="E-mail" type="email" id="id" name="id" class="mail">
-                                            <input type="button" id="idCheck" value="중복확인">
-                                            <input type="button" id="emailCheck" value="이메일인증">
+                                            <input type="button" id="idCheck" class="btn btn-outline btn-primary" value="중복확인">
+                                            <input type="button" id="emailCheck" class="btn btn-outline btn-primary" value="이메일인증">
                                             <div class="E-mailchk">
                                             <label>이메일 인증</label> 
 											<input class="form-control" type="text" id="E-mailconfirm" name="E-mailconfirm" class="E-mailchk">											
@@ -40,12 +40,12 @@
                                         <div class="form-group">
                                             <label>닉네임</label>
                                             <input class="form-control" type="text" id="nickname" name="nickname">
-                                            <input type="button" id="nicknameCheck" value="중복확인">                                         
+                                            <input type="button" class="btn btn-outline btn-primary" id="nicknameCheck" value="중복확인">                                         
                                         </div>
                                         <div class="form-group">
                                             <label>주소</label><br>
                                             <input type="text" id="postcode" name="postcode" placeholder="우편번호">
-											<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+											<input type="button" class="btn btn-outline btn-primary" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 											<input type="text" id="address1" name="address1" placeholder="도로명주소">
 											<br>
 											<span id="guide" style="color:#999;display:none"></span>
@@ -53,8 +53,8 @@
 											<input type="text" id="address3" name="address3" placeholder="상세주소">
 											
                                         </div>
-                                        <button type="submit" class="btn btn-default" id="submitbutton">회원가입</button>
-                                        <button type="reset" class="btn btn-default" onclick="location.href='/member/login'">이전으로</button>
+                                        <button type="submit" class="btn btn-outline btn-primary" id="submitbutton">회원가입</button>
+                                        <button type="reset" class="btn btn-outline btn-default" onclick="location.href='/member/login'">이전으로</button>
                                         
                                     </form>
                                 </div>
@@ -153,7 +153,7 @@ $(document).ready(function(){
 			data : {"id" : $("#id").val()},
 			success : function(data){
 				idCheck = data;
-				alert("idCheck : "+idCheck);
+				
 				if(data > 0){
 					alert("중복된 아이디입니다. ");
 				}

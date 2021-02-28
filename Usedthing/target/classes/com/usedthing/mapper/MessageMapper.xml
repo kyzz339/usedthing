@@ -17,6 +17,14 @@
 		order by m_Idx desc		
 	</select>
 	
+	<select id="getsendListhead" resultType="com.usedthing.DTO.MessageDTO">
+		select *
+		from usedthing_message
+		where m_Deceiver = #{nickname}        
+		order by m_Idx desc
+        limit 3	
+	</select>
+	
 	<insert id="insert">
 		insert into usedthing_message (p_Idx,m_Sender,m_Deceiver,m_Title,m_Contents)
 		values (#{p_Idx},#{m_Sender},#{m_Deceiver},#{m_Title},#{m_Contents})

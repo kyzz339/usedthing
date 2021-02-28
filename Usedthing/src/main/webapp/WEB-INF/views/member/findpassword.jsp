@@ -51,8 +51,8 @@
                                 </div>                                                                                               
                             </fieldset>
                         </form>
-                        <button type="button" class="btn btn-outline btn-success" onclick="location.href='/member/createmember'">회원가입</button>
-                        <button type="button" class="btn btn-outline btn-success" id="findpass" onclick="idChk();">비밀번호 찾기</button>
+                        <button type="button" class="btn btn-outline btn-primary" onclick="location.href='/member/createmember'">회원가입</button>
+                        <button type="button" class="btn btn-outline btn-primary" id="findpass" onclick="idChk();">비밀번호 찾기</button>
                     </div>
                 </div>
             </div>

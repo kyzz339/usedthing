@@ -29,7 +29,7 @@
 			                                    </button>
 			                                    <ul class="dropdown-menu pull-right" role="menu">
 			                                        <li>
-			                                        	<a href="#">메세지 보내기</a>
+			                                        	<a href="/message/createmessage?p_Idx=<c:out value='${message.p_Idx}'/>&m_Deceiver=<c:out value='${message.m_Deceiver}'/>&m_Sender=<c:out value='${message.m_Sender}'/>">메세지 보내기</a>
 			                                        </li>
 			                                    </ul>
 			                                </div>			                            

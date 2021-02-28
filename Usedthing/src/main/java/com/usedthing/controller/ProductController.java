@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.usedthing.DTO.MemberDTO;
@@ -75,6 +76,7 @@ public String Mylist(Model model,P_Criteria cri,@SessionAttribute("member")Membe
 	public String p_create(ProductDTO dto,MultipartFile file1,List<MultipartFile> files) {
 		String filename ="";
 		dto.setP_Thumnail(file1.getOriginalFilename());
+		
 		for(int a=0;a<files.size();a++) {
 		filename += files.get(a).getOriginalFilename();
 		if(a < files.size()-1) {
@@ -84,10 +86,10 @@ public String Mylist(Model model,P_Criteria cri,@SessionAttribute("member")Membe
 		}
 		dto.setP_Img(filename);
 		
-		String fileName1= dto.getP_Thumnail();
+		String fileName1= file1.getOriginalFilename();
 		String fileName2=dto.getP_Img();
 		
-		String uploadPath ="/C:/Users/kyzz3/eclipse-workspace/Usedthing/src/main/webapp/resources/images";
+		String uploadPath ="C:\\Users\\kyzz3\\git\\usedthing\\Usedthing\\src\\main\\webapp\\resources\\images";
 		
 		File target= new File(uploadPath,fileName1);
 		
@@ -100,10 +102,12 @@ public String Mylist(Model model,P_Criteria cri,@SessionAttribute("member")Membe
 			try {
 				FileCopyUtils.copy(file1.getBytes(),target);
 				System.out.println("file1 :"+file1.getOriginalFilename());
+				
 				for(int a=0;a<files.size();a++) 
 					{
-						File target1 = new File(uploadPath,filename.split(",")[a]);
-						FileCopyUtils.copy(files.get(a).getBytes(),target1);
+						File target2 = new File(uploadPath,filename.split(",")[a]);
+						
+						FileCopyUtils.copy(files.get(a).getBytes(),target2);
 						System.out.println("files :"+files.get(a).getOriginalFilename());
 					}
 				
@@ -206,7 +210,7 @@ public String Mylist(Model model,P_Criteria cri,@SessionAttribute("member")Membe
 		System.out.println("file1 :"+fileName1);
 		System.out.println("file2 :"+fileName2);
 		
-		String uploadPath ="/C:/Users/kyzz3/eclipse-workspace/Usedthing/src/main/webapp/resources/images";
+		String uploadPath ="C:\\Users\\kyzz3\\git\\usedthing\\Usedthing\\src\\main\\webapp\\resources\\images";
 		
 		File target= new File(uploadPath,fileName1);
 		
@@ -220,10 +224,10 @@ public String Mylist(Model model,P_Criteria cri,@SessionAttribute("member")Membe
 			if(file1 != null) {
 				FileCopyUtils.copy(file1.getBytes(),target);
 				System.out.println("file1 :"+file1.getOriginalFilename());
-				}
+				}else
 			for(int a=0;a<files.size();a++) 
 				{
-					File target1 = new File(uploadPath,filename.split(",")[a]);
+					File target1 = new File(uploadPath,files.get(a).getOriginalFilename());
 					FileCopyUtils.copy(files.get(a).getBytes(),target1);
 					System.out.println("files :"+files.get(a).getOriginalFilename());
 				}

@@ -39,7 +39,7 @@
                                         <div class="form-group" id="photoupload">                                                                                        
                                                                 
                                         </div>
-                                        <input type="button" id="addfile" value="사진추가" >
+                                        <input type="button" class="btn btn-default" id="addfile" value="사진추가" >
                                         
                                         <div class="form-group">
                                             <label>판매방식</label>
@@ -76,7 +76,7 @@
 </body>
 <script>
 $(document).ready(function(){
-	var str = "<label>썸네일 이미지</label><input type='file' name='file1'>";
+	var str = "<label>썸네일 이미지</label><input  type='file' name='file1'>";
 	var photoupload = $("#photoupload");
 	photoupload.html(str);
 	$("#addfile").on("click",function(){

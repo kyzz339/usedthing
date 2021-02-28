@@ -7,7 +7,8 @@
 <script type="text/javascript">
 $(document).ready(function() {
 var searchForm=$("#searchForm");
-
+var messagelist = $("#messagebox");
+var count = 0;
 $("#searchForm button").on("click",function(e){
 	  
 	  if(!searchForm.find("option:selected").val()){
@@ -23,6 +24,34 @@ $("#searchForm button").on("click",function(e){
 	   
 	  searchForm.submit();
 });
+	$("#headmessage").on("click",function(e){
+		var str = "";
+		$.ajax({
+			url : "/message/headmessage",
+			type : "get",
+			dataType : "json",
+			data : {"nickname" : "<c:out value='${member.nickname}'/>" },
+			success : function(data){
+			if(count ==0){
+				for(var i=0; i<data.length; i++){
+				str = "<li><a href='/message/messageread?m_Idx="+data[i].m_Idx+"'>"
+				str += 	"<div><strong>"+data[i].m_Sender+"</strong>";
+				str +=  "<span class='pull-right text-muted'></span></div>";
+				str +=  "<div>"+data[i].m_Title+"</div></a></li>";
+				str +=  "<li class='divider'></li>";
+				messagelist.append(str);
+				}
+			
+			str = "<li><a class='text-center' href='/message/messagelist'><strong>Read All Messages</strong><i class='fa fa-angle-right'></i></a></li>"
+			messagelist.append(str);
+			count = 1;
+			}
+			
+			}
+		})
+		
+	})
+
 });
 </script>
 <head>
@@ -87,62 +116,25 @@ $("#searchForm button").on("click",function(e){
 
             <ul class="nav navbar-top-links navbar-right">
             <!--메일박스  -->
-                <li class="dropdown">               
+                <li class="dropdown" id="headmessage">               
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">                    
                         <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
-                    </a>                  
-                    <ul class="dropdown-menu dropdown-messages">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>Read All Messages</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
+                    </a>
+                               
+                    <ul class="dropdown-menu dropdown-messages" id="messagebox">
+                       
                     </ul>
+
                     <!-- /.dropdown-messages -->
                 </li>
+           
               	<!--종박스  -->
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
+                   
                     <ul class="dropdown-menu dropdown-alerts">
                         <li>
                             <a href="#">
@@ -207,11 +199,11 @@ $("#searchForm button").on("click",function(e){
                     <ul class="dropdown-menu dropdown-user">
                         <li>                        
                         <c:if test="${member ne null}">
-                        <a href="/member/modify"><i class="fa fa-user fa-fw"></i> User Profile</a>                      
+                        <a href="/member/modify"><i class="fa fa-user fa-fw"></i> <c:out value="${member.nickname}"/>님의 Profile</a>                      
                         
                         </c:if>
                         <c:if test="${member eq null}">
-                        <a href="/member/login"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        <a href="/member/login"><i class="fa fa-user fa-fw"></i> 비회원 님의 Profile</a>
                         </c:if>
                         </li>
                         <c:if test="${member ne null }">

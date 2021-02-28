@@ -211,6 +211,7 @@ public class Membercontroller {
 		 System.out.println("이메일 주소 :"+email);
 		 
 		 Random random = new Random();
+		 
 		 int checknum = random.nextInt(888888)+111111;
 		 System.out.println("인증 번호"+checknum);
 		 

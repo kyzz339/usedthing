@@ -70,7 +70,7 @@
   			where (p_Title like concat('%',#{keyword},'%') or p_Contents like concat('%',#{keyword},'%') or p_Code like concat('%',#{keyword},'%'))
   			</when>
   		</choose>
-  		order by p_Idx asc
+  		order by p_Idx desc
   		limit #{nowPageNum},#{amount}
   	</select>
   	

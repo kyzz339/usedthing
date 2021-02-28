@@ -11,6 +11,8 @@ public interface MessageMapper {
 	
 	public List<MessageDTO> getsendList(String nickname);
 	
+	public List<MessageDTO> getsendListhead(String nickname);
+	
 	public int insert(MessageDTO dto);
 	
 	public M_productDTO read(int m_Idx);

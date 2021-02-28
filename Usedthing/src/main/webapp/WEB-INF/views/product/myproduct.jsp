@@ -27,7 +27,9 @@
 	    </div>
 	  </div>
   </c:forEach>
-  <div class='pull-right'>
+</div>
+<div class="row">
+  <div class='pull-left'>
   	<ul class="pagination">
   <!--좀 어려움 다시한번 보기  -->
   <c:if test="${pageMaker.prev }">

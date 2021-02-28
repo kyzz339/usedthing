@@ -22,7 +22,9 @@
                                   <textarea class="form-control" rows="30" cols="90" readonly="readonly"><c:out value="${message.message.m_Contents}"/></textarea>
                                   </div>
                                   <hr>
+                                  <c:if test="${message.message.m_Sender ne member.nickname}">
                                   <button class="btn btn-default" onclick="location.href='/message/createmessage?p_Idx=<c:out value='${message.message.p_Idx}'/>&m_Deceiver=<c:out value='${message.message.m_Sender}'/>'">답장</button>
+                                  </c:if>
                                   <button class="btn btn-default" onclick="location.href='/message/deletemessage?m_Idx=${message.message.m_Idx}'">삭제</button>
                                   <button class="btn btn-default" type="button" id="back" onclick="history.back()">이전</button>
 								  <c:if test="${sessionScope.member.nickname eq message.message.m_Deceiver }">																  									 

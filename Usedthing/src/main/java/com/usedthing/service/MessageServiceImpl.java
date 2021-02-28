@@ -44,5 +44,10 @@ public class MessageServiceImpl implements MessageService{
 		
 		return mapper.getsendList(nickname);
 	};
+	@Override
+	public List<MessageDTO> getsendListhead(String nickname){
+		
+		return mapper.getsendListhead(nickname);
+	}
 	
 }
